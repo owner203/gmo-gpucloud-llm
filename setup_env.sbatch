@@ -8,6 +8,8 @@
 
 echo "Job started at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"
 
-srun scripts/setup_env.sh
+work_dir=$HOME/gmo-gpucloud-llm
+
+srun scripts/setup_env.sh $work_dir
 
 echo "Job finished at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"

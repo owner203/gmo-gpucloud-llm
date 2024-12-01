@@ -2,10 +2,10 @@
 
 [GMO GPU Cloud](https://gpucloud.gmo/) LLM training test on Slurm.
 
-## Environment
+## Requirements
 
 - [PyTorch](https://github.com/pytorch/pytorch) == `2.5.1`
-- [DeepSpeed](https://github.com/microsoft/DeepSpeed) == `0.16.0`
+- [DeepSpeed](https://github.com/microsoft/DeepSpeed) == `0.15.4`
 - [ModelScope SWIFT](https://github.com/modelscope/ms-swift) == `2.6.1`
 
 ```bash
@@ -20,7 +20,16 @@ sbatch setup_env.sbatch
 
 ## LLMs and Datasets
 
-`$HOME/gmo-gpucloud-llm/LLM-Research`
+- [Llama-3.1-70B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct)
+- [alpaca_ja](https://github.com/shi3z/alpaca_ja)
+
+```bash
+mkdir -p $HOME/gmo-gpucloud-llm/LLM-Research/dataset
+source $HOME/gmo-gpucloud-llm/scripts/module_load.sh
+source $HOME/gmo-gpucloud-llm/.venv/bin/activate
+huggingface-cli download meta-llama/Llama-3.1-70B-Instruct --local-dir $HOME/gmo-gpucloud-llm/LLM-Research/Meta-Llama-3.1-70B-Instruct
+curl -L -o $HOME/gmo-gpucloud-llm/LLM-Research/dataset/alpaca_cleaned_ja.json https://raw.githubusercontent.com/shi3z/alpaca_ja/refs/heads/main/alpaca_cleaned_ja.json
+```
 
 ## Fine-Tuning
 
@@ -28,4 +37,4 @@ sbatch setup_env.sbatch
 sbatch multi_node_sft.sbatch
 ```
 
-## Starting Web UI (Single Node)
+## Web UI (Single Node)

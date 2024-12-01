@@ -8,6 +8,9 @@
 
 echo "Job started at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"
 
-srun scripts/test.sh
+text1='Hello'
+text2='World'
+
+srun scripts/test.sh $text1 $text2
 
 echo "Job finished at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"
