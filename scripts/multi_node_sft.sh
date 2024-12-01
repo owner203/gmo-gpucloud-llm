@@ -19,11 +19,13 @@ source $work_dir/scripts/module_load.sh
 source $work_dir/.venv/bin/activate
 
 export NCCL_DEBUG=INFO
-export NCCL_P2P_LEVEL=NVL
+export NCCL_P2P_LEVEL=PXB
+export NCCL_SOCKET_FAMILY=AF_INET
 export NCCL_SOCKET_NTHREADS=16
 export NCCL_NSOCKS_PERTHREAD=4
 export NCCL_IB_DISABLE=1
-export NCCL_NET_GDR_LEVEL=PIX
+export NCCL_NET_GDR_LEVEL=PXB
+export NCCL_NET_GDR_READ=1
 
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
@@ -47,8 +49,8 @@ swift sft \
     --init_lora_weights 'True' \
     --learning_rate '1e-4' \
     --gradient_accumulation_steps '16' \
-    --eval_steps '5' \
-    --save_steps '5' \
+    --eval_steps '500' \
+    --save_steps '500' \
     --save_total_limit '-1' \
     --logging_steps '1' \
     --batch_size $batch_size \
