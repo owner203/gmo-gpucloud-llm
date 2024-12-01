@@ -1,6 +1,6 @@
 # GMO GPU Cloud LLM
 
-[GMO GPU Cloud](https://gpucloud.gmo/) LLM training test on Slurm.
+[GMO GPU Cloud](https://gpucloud.gmo/) LLM training test using Slurm.
 
 ## Requirements
 
