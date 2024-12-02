@@ -27,6 +27,8 @@ source $work_dir/.venv/bin/activate
 if [ "$SLURM_NNODES" -eq 1 ]; then
   export NCCL_P2P_DISABLE=0
   export NCCL_P2P_LEVEL=NVL
+elif [ "$SLURM_NNODES" -eq 2 ]; then
+  export NCCL_P2P_DISABLE=0
 else
   export NCCL_P2P_DISABLE=1
 fi
