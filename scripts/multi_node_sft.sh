@@ -14,6 +14,12 @@ lazy_tokenize=$7
 batch_size=$8
 ds_config=$9
 
+if [ "$ds_config" != "None" ]; then
+  deepspeed_arg="--deepspeed $ds_config"
+else
+  deepspeed_arg=""
+fi
+
 source $work_dir/scripts/module_load.sh
 
 source $work_dir/.venv/bin/activate
@@ -55,10 +61,10 @@ swift sft \
     --logging_steps '1' \
     --batch_size $batch_size \
     --eval_batch_size $batch_size \
-    --deepspeed $ds_config \
     --add_output_dir_suffix False \
     --ddp_backend nccl \
     --ddp_timeout '1800' \
+    $deepspeed_arg \
     --output_dir $work_dir/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID) \
     --logging_dir $work_dir/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID)/runs \
     --ignore_args_error True
