@@ -24,9 +24,8 @@ sbatch setup_env.sbatch
 - [alpaca_ja](https://github.com/shi3z/alpaca_ja)
 
 ```bash
-mkdir -p $HOME/gmo-gpucloud-llm/LLM-Research/dataset
-source $HOME/gmo-gpucloud-llm/scripts/module_load.sh
 source $HOME/gmo-gpucloud-llm/.venv/bin/activate
+mkdir -p $HOME/gmo-gpucloud-llm/LLM-Research/dataset
 huggingface-cli download meta-llama/Llama-3.1-70B-Instruct --local-dir $HOME/gmo-gpucloud-llm/LLM-Research/Meta-Llama-3.1-70B-Instruct
 curl -L -o $HOME/gmo-gpucloud-llm/LLM-Research/dataset/alpaca_cleaned_ja.json https://raw.githubusercontent.com/shi3z/alpaca_ja/refs/heads/main/alpaca_cleaned_ja.json
 ```
