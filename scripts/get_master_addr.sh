@@ -1,6 +1,6 @@
 #!/bin/bash
 
-first_segment=$(echo $SLURM_NODELIST | grep -oP '^[^\],]*[\]]?')
+first_segment=$(echo $SLURM_JOB_NODELIST | grep -oP '^[^\],]*[\]]?')
 if [[ $first_segment == *\[* ]]; then
   prefix=$(echo $first_segment | grep -oP '^[^\[]+')
   ranges=$(echo $first_segment | grep -oP '\[\K[^\]]+')
