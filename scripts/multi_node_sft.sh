@@ -41,9 +41,14 @@ export NCCL_NET_GDR_LEVEL=PIX
 export NCCL_NET_GDR_READ=1
 export NCCL_DEBUG=INFO
 
+gpu_count=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
+if [ -z "$SLURM_GPUS" ]; then
+  export NPROC_PER_NODE=$gpu_count
+else
+  export NPROC_PER_NODE=$(($SLURM_GPUS<$gpu_count?$SLURM_GPUS:$gpu_count))
+fi
 export NNODES=$SLURM_NNODES
 export NODE_RANK=$SLURM_NODEID
-export NPROC_PER_NODE=8
 export MASTER_PORT=8111
 export DATASET_ENABLE_CACHE=1
 
