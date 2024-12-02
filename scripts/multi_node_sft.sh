@@ -24,14 +24,20 @@ source $work_dir/scripts/module_load.sh
 
 source $work_dir/.venv/bin/activate
 
-export NCCL_DEBUG=INFO
-export NCCL_P2P_LEVEL=PXB
+if [ "$SLURM_NNODES" -eq 1 ]; then
+  export NCCL_P2P_DISABLE=0
+  export NCCL_P2P_LEVEL=NVL
+else
+  export NCCL_P2P_DISABLE=1
+fi
+
 export NCCL_SOCKET_FAMILY=AF_INET
 export NCCL_SOCKET_NTHREADS=16
 export NCCL_NSOCKS_PERTHREAD=4
 export NCCL_IB_DISABLE=1
 export NCCL_NET_GDR_LEVEL=PIX
 export NCCL_NET_GDR_READ=1
+export NCCL_DEBUG=INFO
 
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
