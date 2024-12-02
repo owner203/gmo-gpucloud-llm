@@ -34,7 +34,7 @@ curl -L -o $HOME/gmo-gpucloud-llm/LLM-Research/dataset/alpaca_cleaned_ja.json ht
 ## Fine-Tuning
 
 ```bash
-sbatch multi_node_sft.sbatch
+sbatch -p part-share --nodes=2 multi_node_sft.sbatch
 ```
 
 ## Web UI (Single Node)

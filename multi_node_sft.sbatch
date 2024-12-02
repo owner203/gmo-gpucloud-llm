@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=multi_node_sft
 #SBATCH -p part-share
-#SBATCH --nodes=2
+#SBATCH --nodes=1
 #SBATCH -o logs/%x.%j.out.log
 #SBATCH -e logs/%x.%j.err.log
 
@@ -18,7 +18,7 @@ dataset=$work_dir/LLM-Research/dataset/alpaca_cleaned_ja.json
 # dataset=$work_dir/LLM-Research/dataset/alpaca_gpt4_data_zh.json
 max_length=2048
 lazy_tokenize='False'
-batch_size=32
+batch_size=8
 # batch_size=1
 ds_config='default-zero3'
 # ds_config='None'
