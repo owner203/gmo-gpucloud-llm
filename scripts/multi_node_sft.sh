@@ -9,15 +9,28 @@ model_type=$2
 model_id_or_path=$3
 template_type=$4
 dataset=$5
-max_length=$6
-lazy_tokenize=$7
-batch_size=$8
-ds_config=$9
+
+max_length=${6:-2048}
+lazy_tokenize=${7:-'False'}
+batch_size=${8:-1}
+ds_config=${9:-'None'}
+checkpoint_path=${10:-'None'}
+resume_only_model=${11:-'False'}
 
 if [ "$ds_config" != "None" ]; then
   deepspeed_arg="--deepspeed $ds_config"
+  save_steps=50
 else
   deepspeed_arg=""
+  save_steps=500
+fi
+
+if [ "$checkpoint_path" != "None" ]; then
+  resume_from_checkpoint_arg="--resume_from_checkpoint $checkpoint_path"
+  resume_only_model_args="--resume_only_model $resume_only_model"
+else
+  resume_from_checkpoint_arg=""
+  resume_only_model_args=""
 fi
 
 source $work_dir/scripts/module_load.sh
@@ -66,8 +79,8 @@ swift sft \
     --init_lora_weights 'True' \
     --learning_rate '1e-4' \
     --gradient_accumulation_steps '16' \
-    --eval_steps '500' \
-    --save_steps '500' \
+    --eval_steps $save_steps \
+    --save_steps $save_steps \
     --save_total_limit '-1' \
     --logging_steps '1' \
     --batch_size $batch_size \
@@ -76,6 +89,8 @@ swift sft \
     --ddp_backend nccl \
     --ddp_timeout '1800' \
     $deepspeed_arg \
+    $resume_from_checkpoint_arg \
+    $resume_only_model_args \
     --output_dir $work_dir/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID) \
     --logging_dir $work_dir/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID)/runs \
     --ignore_args_error True
