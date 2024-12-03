@@ -1,5 +1,6 @@
 .venv/
 LLM-Research/
+!LLM-Research/ds_config/
 logs/
 output/
 packages/
