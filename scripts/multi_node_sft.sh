@@ -22,6 +22,18 @@ ds_config=${14:-'None'}
 checkpoint_path=${15:-'None'}
 resume_only_model=${16:-'False'}
 
+if [ "$learning_rate" != "None" ]; then
+  learning_rate_arg="--learning_rate $learning_rate"
+else
+  learning_rate_arg=""
+fi
+
+if [ "$gradient_accumulation_steps" != "None" ]; then
+  gradient_accumulation_steps_arg="--gradient_accumulation_steps $gradient_accumulation_steps"
+else
+  gradient_accumulation_steps_arg=""
+fi
+
 if [ "$ds_config" != "None" ]; then
   deepspeed_arg="--deepspeed $ds_config"
   save_steps=50
@@ -82,8 +94,8 @@ swift sft \
     --sft_type $sft_type \
     --lora_target_modules $lora_target_modules \
     --init_lora_weights $init_lora_weights \
-    --learning_rate $learning_rate \
-    --gradient_accumulation_steps $gradient_accumulation_steps \
+    $learning_rate_arg \
+    $gradient_accumulation_steps_arg \
     --eval_steps $save_steps \
     --save_steps $save_steps \
     --save_total_limit '-1' \
