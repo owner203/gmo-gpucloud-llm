@@ -12,10 +12,15 @@ dataset=$5
 
 max_length=${6:-2048}
 lazy_tokenize=${7:-'False'}
-batch_size=${8:-1}
-ds_config=${9:-'None'}
-checkpoint_path=${10:-'None'}
-resume_only_model=${11:-'False'}
+sft_type=${8:-'lora'}
+lora_target_modules=${9:-'DEFAULT'}
+init_lora_weights=${10:-'True'}
+learning_rate=${11:-'None'}
+gradient_accumulation_steps=${12:-'None'}
+batch_size=${13:-1}
+ds_config=${14:-'None'}
+checkpoint_path=${15:-'None'}
+resume_only_model=${16:-'False'}
 
 if [ "$ds_config" != "None" ]; then
   deepspeed_arg="--deepspeed $ds_config"
@@ -74,11 +79,11 @@ swift sft \
     --dataset $dataset \
     --max_length $max_length \
     --lazy_tokenize $lazy_tokenize \
-    --sft_type lora \
-    --lora_target_modules 'q_proj' 'k_proj' 'v_proj' \
-    --init_lora_weights 'True' \
-    --learning_rate '1e-4' \
-    --gradient_accumulation_steps '16' \
+    --sft_type $sft_type \
+    --lora_target_modules $lora_target_modules \
+    --init_lora_weights $init_lora_weights \
+    --learning_rate $learning_rate \
+    --gradient_accumulation_steps $gradient_accumulation_steps \
     --eval_steps $save_steps \
     --save_steps $save_steps \
     --save_total_limit '-1' \

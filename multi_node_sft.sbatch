@@ -10,24 +10,51 @@ echo "Job started at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"
 
 work_dir=$HOME/gmo-gpucloud-llm
 model_type='llama3_1-70b-instruct'
-# model_type='llama3-70b-instruct'
 model_id_or_path=$work_dir/LLM-Research/Meta-Llama-3.1-70B-Instruct
-# model_id_or_path=$work_dir/LLM-Research/Meta-Llama-3-70B-Instruct
 template_type='llama3'
 dataset=$work_dir/LLM-Research/dataset/alpaca_cleaned_ja.json
-# dataset=$work_dir/LLM-Research/dataset/alpaca_gpt4_data_zh.json
 
 max_length=2048
 lazy_tokenize='False'
+sft_type='lora'
+lora_target_modules='DEFAULT'
+init_lora_weights='True'
+learning_rate='1e-4'
+gradient_accumulation_steps=16
 batch_size=4
-# batch_size=1
 ds_config=$work_dir/LLM-Research/ds_config/zero3.json
-# ds_config='None'
 checkpoint_path='None'
+resume_only_model='False'
+
+# max_length=2048
+# lazy_tokenize='False'
+# sft_type='lora'
+# lora_target_modules='q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj,embed_tokens,lm_head'
+# init_lora_weights='True'
+# learning_rate='None'
+# gradient_accumulation_steps='None'
+# batch_size=1
+# ds_config='None'
 # checkpoint_path=$work_dir/output/multi_node_sft.4996/checkpoint-50
 # resume_only_model='False'
 
 mkdir -p $work_dir/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID)/runs
-srun scripts/multi_node_sft.sh $work_dir $model_type $model_id_or_path $template_type $dataset $max_length $lazy_tokenize $batch_size $ds_config $checkpoint_path
+srun scripts/multi_node_sft.sh \
+    $work_dir \
+    $model_type \
+    $model_id_or_path \
+    $template_type \
+    $dataset \
+    $max_length \
+    $lazy_tokenize \
+    $sft_type \
+    $lora_target_modules \
+    $init_lora_weights \
+    $learning_rate \
+    $gradient_accumulation_steps \
+    $batch_size \
+    $ds_config \
+    $checkpoint_path \
+    $resume_only_model
 
 echo "Job finished at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"
