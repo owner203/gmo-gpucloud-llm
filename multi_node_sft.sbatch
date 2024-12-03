@@ -19,7 +19,7 @@ dataset=$work_dir/LLM-Research/dataset/alpaca_cleaned_ja.json
 
 max_length=2048
 lazy_tokenize='False'
-batch_size=8
+batch_size=4
 # batch_size=1
 ds_config=$work_dir/LLM-Research/ds_config/zero3.json
 # ds_config='None'
