@@ -17,3 +17,5 @@ export NCCL_LIB_DIR=/opt/share/modules/spack/v24.09/linux-ubuntu22.04-x86_64_v4/
 export NCCL_INCLUDE_DIR=/opt/share/modules/spack/v24.09/linux-ubuntu22.04-x86_64_v4/gcc-11.4.0/nccl-2.21.5-1-4gaygcfzk6l7jw34v5asjz7mdy2yngoj/include
 export USE_SYSTEM_NCCL=1
 export TORCH_EXTENSIONS_DIR=$work_dir/packages/torch-extensions
+
+echo "Modules loaded on $(hostname)"
