@@ -50,9 +50,7 @@ else
   resume_only_model_args=""
 fi
 
-source $work_dir/scripts/module_load.sh
-
-source $work_dir/.venv/bin/activate
+source $work_dir/scripts/activate_env.sh $work_dir
 
 if [ "$SLURM_NNODES" -eq 1 ]; then
   export NCCL_P2P_DISABLE=0

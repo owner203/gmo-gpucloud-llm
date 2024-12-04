@@ -6,20 +6,22 @@
 
 work_dir=${1:-$HOME/gmo-gpucloud-llm}
 
-source $work_dir/scripts/module_load.sh
+echo "Setting up virtual environment"
 
 if [ -d "$work_dir/.venv" ]; then
   rm -rf $work_dir/.venv
 fi
-python -m venv $work_dir/.venv
+if [ -d "$work_dir/packages" ]; then
+  rm -rf $work_dir/packages
+fi
 
+source $work_dir/scripts/module_load.sh $work_dir
+
+python -m venv $work_dir/.venv
 source $work_dir/.venv/bin/activate
 
 pip install --upgrade pip
 
-if [ -d "$work_dir/packages" ]; then
-  rm -rf $work_dir/packages
-fi
 mkdir -p $work_dir/packages
 
 curl -L -o $work_dir/packages/pytorch.tar.gz https://github.com/pytorch/pytorch/releases/download/v2.5.1/pytorch-v2.5.1.tar.gz
@@ -37,3 +39,5 @@ curl -L -o $work_dir/packages/ms-swift.tar.gz https://github.com/modelscope/ms-s
 tar -zxvf $work_dir/packages/ms-swift.tar.gz -C $work_dir/packages
 cd $work_dir/packages/ms-swift-2.6.1
 pip install -e '.[all]'
+
+echo "Virtual environment setup complete"

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+work_dir=${1:-$HOME/gmo-gpucloud-llm}
+
 module load cmake/3.30.5
 module load cuda/12.4.1
 module load cudnn/9.5.0.50_cuda12
@@ -14,4 +16,4 @@ export LD_LIBRARY_PATH=/opt/share/modules/spack/v24.09/linux-ubuntu22.04-x86_64_
 export NCCL_LIB_DIR=/opt/share/modules/spack/v24.09/linux-ubuntu22.04-x86_64_v4/gcc-11.4.0/nccl-2.21.5-1-4gaygcfzk6l7jw34v5asjz7mdy2yngoj/lib
 export NCCL_INCLUDE_DIR=/opt/share/modules/spack/v24.09/linux-ubuntu22.04-x86_64_v4/gcc-11.4.0/nccl-2.21.5-1-4gaygcfzk6l7jw34v5asjz7mdy2yngoj/include
 export USE_SYSTEM_NCCL=1
-export TORCH_EXTENSIONS_DIR=$HOME/gmo-gpucloud-llm/packages/torch-extensions
+export TORCH_EXTENSIONS_DIR=$work_dir/packages/torch-extensions

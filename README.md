@@ -10,7 +10,9 @@
 
 ```bash
 cd $HOME && git clone https://github.com/owner203/gmo-gpucloud-llm.git
+
 cd $HOME/gmo-gpucloud-llm
+
 sbatch setup_env.sbatch
 ```
 
@@ -24,10 +26,15 @@ sbatch setup_env.sbatch
 - [alpaca_ja](https://github.com/shi3z/alpaca_ja)
 
 ```bash
-source $HOME/gmo-gpucloud-llm/.venv/bin/activate
-mkdir -p $HOME/gmo-gpucloud-llm/LLM-Research/dataset
-huggingface-cli download meta-llama/Llama-3.1-70B-Instruct --local-dir $HOME/gmo-gpucloud-llm/LLM-Research/Meta-Llama-3.1-70B-Instruct
-curl -L -o $HOME/gmo-gpucloud-llm/LLM-Research/dataset/alpaca_cleaned_ja.json https://raw.githubusercontent.com/shi3z/alpaca_ja/refs/heads/main/alpaca_cleaned_ja.json
+cd $HOME/gmo-gpucloud-llm
+
+source scripts/activate_env.sh
+
+mkdir -p LLM-Research/dataset
+
+huggingface-cli download meta-llama/Llama-3.1-70B-Instruct --local-dir LLM-Research/Meta-Llama-3.1-70B-Instruct
+
+curl -L -o LLM-Research/dataset/alpaca_cleaned_ja.json https://raw.githubusercontent.com/shi3z/alpaca_ja/refs/heads/main/alpaca_cleaned_ja.json
 ```
 
 ## Fine-Tuning
