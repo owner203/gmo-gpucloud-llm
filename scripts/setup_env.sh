@@ -5,6 +5,9 @@
 #
 
 work_dir=${1:-$HOME/gmo-gpucloud-llm}
+pytorch_version=${2:-"2.5.1"}
+deepspeed_version=${3:-"0.15.4"}
+ms_swift_version=${4:-"2.6.1"}
 
 echo "Setting up virtual environment"
 
@@ -24,20 +27,20 @@ pip install --upgrade pip
 
 mkdir -p $work_dir/packages
 
-curl -L -o $work_dir/packages/pytorch.tar.gz https://github.com/pytorch/pytorch/releases/download/v2.5.1/pytorch-v2.5.1.tar.gz
+curl -L -o $work_dir/packages/pytorch.tar.gz https://github.com/pytorch/pytorch/releases/download/v$pytorch_version/pytorch-v$pytorch_version.tar.gz
 tar -zxvf $work_dir/packages/pytorch.tar.gz -C $work_dir/packages
-cd $work_dir/packages/pytorch-v2.5.1
+cd $work_dir/packages/pytorch-v$pytorch_version
 pip install -r requirements.txt
 python setup.py install
 
-curl -L -o $work_dir/packages/DeepSpeed.tar.gz https://github.com/microsoft/DeepSpeed/archive/refs/tags/v0.15.4.tar.gz
+curl -L -o $work_dir/packages/DeepSpeed.tar.gz https://github.com/microsoft/DeepSpeed/archive/refs/tags/v$deepspeed_version.tar.gz
 tar -zxvf $work_dir/packages/DeepSpeed.tar.gz -C $work_dir/packages
-cd $work_dir/packages/DeepSpeed-0.15.4
+cd $work_dir/packages/DeepSpeed-$deepspeed_version
 pip install .
 
-curl -L -o $work_dir/packages/ms-swift.tar.gz https://github.com/modelscope/ms-swift/archive/refs/tags/v2.6.1.tar.gz
+curl -L -o $work_dir/packages/ms-swift.tar.gz https://github.com/modelscope/ms-swift/archive/refs/tags/v$ms_swift_version.tar.gz
 tar -zxvf $work_dir/packages/ms-swift.tar.gz -C $work_dir/packages
-cd $work_dir/packages/ms-swift-2.6.1
+cd $work_dir/packages/ms-swift-$ms_swift_version
 pip install -e '.[all]'
 
 echo "Virtual environment setup complete"
