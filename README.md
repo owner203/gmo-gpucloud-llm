@@ -13,6 +13,7 @@ cd $HOME && git clone https://github.com/owner203/gmo-gpucloud-llm.git
 
 cd $HOME/gmo-gpucloud-llm
 
+# Initialize virtual environment
 sbatch setup_env.sbatch
 ```
 
@@ -28,12 +29,15 @@ sbatch setup_env.sbatch
 ```bash
 cd $HOME/gmo-gpucloud-llm
 
+# Activate virtual environment
 source scripts/activate_env.sh
 
 mkdir -p LLM-Research/dataset
 
+# Download Llama-3.1-70B-Instruct model
 huggingface-cli download meta-llama/Llama-3.1-70B-Instruct --local-dir LLM-Research/Meta-Llama-3.1-70B-Instruct
 
+# Download alpaca_ja dataset
 curl -L -o LLM-Research/dataset/alpaca_cleaned_ja.json https://raw.githubusercontent.com/shi3z/alpaca_ja/refs/heads/main/alpaca_cleaned_ja.json
 ```
 
