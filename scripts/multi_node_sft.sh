@@ -79,6 +79,7 @@ export NNODES=$SLURM_NNODES
 export NODE_RANK=$SLURM_NODEID
 export MASTER_PORT=8111
 export DATASET_ENABLE_CACHE=1
+export OMP_NUM_THREADS=112
 
 source $work_dir/scripts/get_master_addr.sh
 
