@@ -47,4 +47,10 @@ curl -L -o LLM-Research/dataset/alpaca_cleaned_ja.json https://raw.githubusercon
 sbatch -p part-share --nodes=2 multi_node_sft.sbatch
 ```
 
-## Web UI (Single Node)
+## Web UI (Single Node Only)
+
+```bash
+sbatch start_web_ui.sbatch
+```
+
+After using, please ensure to STOP the job by `scancel -n start_web_ui --me`
