@@ -52,43 +52,18 @@ fi
 
 source $work_dir/scripts/activate_env.sh $work_dir
 
-if [ "$SLURM_NNODES" -eq 1 ]; then
-  export NCCL_P2P_DISABLE=0
-  export NCCL_P2P_LEVEL=NVL
-elif [ "$SLURM_NNODES" -eq 2 ]; then
-  export NCCL_P2P_DISABLE=0
-else
-  export NCCL_P2P_DISABLE=1
-fi
-
-export NCCL_SOCKET_FAMILY=AF_INET
-export NCCL_SOCKET_NTHREADS=16
-export NCCL_NSOCKS_PERTHREAD=4
-export NCCL_IB_DISABLE=1
-export NCCL_NET_GDR_LEVEL=PIX
-export NCCL_NET_GDR_READ=1
-export NCCL_DEBUG=INFO
-
 gpu_count=$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)
 if [ -z "$SLURM_GPUS" ]; then
   export NPROC_PER_NODE=$gpu_count
 else
   export NPROC_PER_NODE=$(($SLURM_GPUS<$gpu_count?$SLURM_GPUS:$gpu_count))
 fi
-
 export NNODES=$SLURM_NNODES
 export NODE_RANK=$SLURM_NODEID
 export MASTER_PORT=8111
-export DATASET_ENABLE_CACHE=1
-
-omp_num_threads=$(($(nproc) / $NPROC_PER_NODE / 2))
-if [ $omp_num_threads -ge 1 ]; then
-    export OMP_NUM_THREADS=$omp_num_threads
-else
-    export OMP_NUM_THREADS=1
-fi
 
 source $work_dir/scripts/get_master_addr.sh
+source $work_dir/scripts/set_env_vars.sh
 
 swift sft \
     --model_type $model_type \

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ "$SLURM_NNODES" -eq 1 ]; then
+  export NCCL_P2P_LEVEL=NVL
+fi
+export NCCL_IB_TC=136
+export NCCL_IB_SL=5
+export NCCL_IB_GID_INDEX=3
+export NCCL_IB_TIMEOUT=22
+export NCCL_IB_QPS_PER_CONNECTION=8
+export NCCL_NET_GDR_LEVEL=PIX
+export NCCL_NET_GDR_READ=1
+export NCCL_DEBUG=INFO
+
+export DATASET_ENABLE_CACHE=1
+export OMP_NUM_THREADS=2
