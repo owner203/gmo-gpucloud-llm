@@ -75,11 +75,18 @@ if [ -z "$SLURM_GPUS" ]; then
 else
   export NPROC_PER_NODE=$(($SLURM_GPUS<$gpu_count?$SLURM_GPUS:$gpu_count))
 fi
+
 export NNODES=$SLURM_NNODES
 export NODE_RANK=$SLURM_NODEID
 export MASTER_PORT=8111
 export DATASET_ENABLE_CACHE=1
-export OMP_NUM_THREADS=112
+
+omp_num_threads=$(($(nproc) / $NPROC_PER_NODE / 2))
+if [ $omp_num_threads -ge 1 ]; then
+    export OMP_NUM_THREADS=$omp_num_threads
+else
+    export OMP_NUM_THREADS=1
+fi
 
 source $work_dir/scripts/get_master_addr.sh
 
