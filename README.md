@@ -1,6 +1,6 @@
 # GMO GPU Cloud LLM Toolkit
 
-Simple toolkit for LLM testing on [GMO GPU Cloud](https://gpucloud.gmo/) Slurm Cluster.
+Toolkit for easy LLM testing on the [GMO GPU Cloud](https://gpucloud.gmo/) Slurm Cluster.
 
 ## Requirements
 
