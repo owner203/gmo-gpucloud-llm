@@ -13,4 +13,6 @@ export NCCL_NET_GDR_READ=1
 export NCCL_DEBUG=INFO
 
 export DATASET_ENABLE_CACHE=1
+export USE_HF=1
+
 export OMP_NUM_THREADS=2
