@@ -18,7 +18,7 @@ if [ -d "$work_dir/packages" ]; then
   rm -rf $work_dir/packages
 fi
 
-source $work_dir/scripts/module_load.sh $work_dir
+source $work_dir/scripts/module_load.sh
 
 python -m venv $work_dir/.venv
 source $work_dir/.venv/bin/activate

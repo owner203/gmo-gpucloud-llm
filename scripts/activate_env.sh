@@ -2,7 +2,7 @@
 
 work_dir=${1:-$HOME/gmo-gpucloud-llm}
 
-source $work_dir/scripts/module_load.sh $work_dir
+source $work_dir/scripts/module_load.sh
 
 if [ -d "$work_dir/.venv" ]; then
   source $work_dir/.venv/bin/activate
