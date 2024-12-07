@@ -5,10 +5,10 @@
 #
 
 work_dir=${1:-$HOME/gmo-gpucloud-llm}
-model_type=$2
-model_id_or_path=$3
-template_type=$4
-dataset=$5
+model_type=${2:-'llama3_1-8b-instruct'}
+model_id_or_path=${3:-'meta-llama/Meta-Llama-3-8B-Instruct'}
+template_type=${4:-'llama3'}
+dataset=${5:-'alpaca-en'}
 
 max_length=${6:-2048}
 lazy_tokenize=${7:-'False'}
