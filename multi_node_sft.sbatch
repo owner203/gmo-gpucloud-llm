@@ -57,7 +57,7 @@ resume_only_model='False'
 # checkpoint_path='None'
 # resume_only_model='False'
 
-mkdir -p $work_dir/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID)/runs
+mkdir -p ${work_dir:-$HOME/gmo-gpucloud-llm}/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID)/runs
 srun scripts/multi_node_sft.sh \
     ${work_dir:-$HOME/gmo-gpucloud-llm} \
     ${model_type:-'llama3_1-8b-instruct'} \
