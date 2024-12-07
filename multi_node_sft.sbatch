@@ -30,7 +30,7 @@ checkpoint_path='None'
 resume_only_model='False'
 
 #
-# LoRA (target modules)
+# LoRA (target modules, DDP)
 #
 # max_length=2048
 # lazy_tokenize='False'
@@ -50,8 +50,6 @@ resume_only_model='False'
 # max_length=4096
 # lazy_tokenize='False'
 # sft_type='full'
-# lora_target_modules='DEFAULT'
-# init_lora_weights='True'
 # learning_rate='None'
 # gradient_accumulation_steps='None'
 # batch_size=1
@@ -61,21 +59,21 @@ resume_only_model='False'
 
 mkdir -p $work_dir/output/$(echo $SLURM_JOB_NAME.$SLURM_JOB_ID)/runs
 srun scripts/multi_node_sft.sh \
-    $work_dir \
-    $model_type \
-    $model_id_or_path \
-    $template_type \
-    $dataset \
-    $max_length \
-    $lazy_tokenize \
-    $sft_type \
-    $lora_target_modules \
-    $init_lora_weights \
-    $learning_rate \
-    $gradient_accumulation_steps \
-    $batch_size \
-    $ds_config \
-    $checkpoint_path \
-    $resume_only_model
+    ${work_dir:-$HOME/gmo-gpucloud-llm} \
+    ${model_type:-'llama3_1-8b-instruct'} \
+    ${model_id_or_path:-'meta-llama/Meta-Llama-3-8B-Instruct'} \
+    ${template_type:-'llama3'} \
+    ${dataset:-'alpaca-en'} \
+    ${max_length:-2048} \
+    ${lazy_tokenize:-'False'} \
+    ${sft_type:-'lora'} \
+    ${lora_target_modules:-'DEFAULT'} \
+    ${init_lora_weights:-'True'} \
+    ${learning_rate:-'None'} \
+    ${gradient_accumulation_steps:-'None'} \
+    ${batch_size:-1} \
+    ${ds_config:-'None'} \
+    ${checkpoint_path:-'None'} \
+    ${resume_only_model:-'False'}
 
 echo "Job finished at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"

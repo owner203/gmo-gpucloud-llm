@@ -19,6 +19,6 @@ lang=en
 
 echo "Starting Web UI..."
 srun scripts/start_web_ui.sh \
-    $work_dir \
-    $port \
-    $lang
+    ${work_dir:-$HOME/gmo-gpucloud-llm} \
+    ${port:-8888} \
+    ${lang:-'en'}

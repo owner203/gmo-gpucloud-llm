@@ -13,6 +13,10 @@ pytorch_version=2.5.1
 deepspeed_version=0.15.4
 ms_swift_version=2.6.1
 
-srun scripts/setup_env.sh $work_dir $pytorch_version $deepspeed_version $ms_swift_version
+srun scripts/setup_env.sh \
+    ${work_dir:-$HOME/gmo-gpucloud-llm} \
+    ${pytorch_version:-2.5.1} \
+    ${deepspeed_version:-0.15.4} \
+    ${ms_swift_version:-2.6.1}
 
 echo "Job finished at $(TZ=Asia/Tokyo date +%Y/%m/%d\ %H:%M:%S)"
