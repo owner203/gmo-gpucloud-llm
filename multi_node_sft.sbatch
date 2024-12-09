@@ -53,7 +53,7 @@ ds_config=$work_dir/LLM-Research/ds_config/zero3_offload.json
 # learning_rate='None'
 # gradient_accumulation_steps='None'
 # batch_size=1
-# ds_config=$work_dir/LLM-Research/ds_config/zero3_offload.json
+# ds_config='None'
 
 #
 # Resume from checkpoint
