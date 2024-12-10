@@ -18,9 +18,10 @@ init_lora_weights=${10:-'True'}
 learning_rate=${11:-'None'}
 gradient_accumulation_steps=${12:-'None'}
 batch_size=${13:-1}
-ds_config=${14:-'None'}
-checkpoint_path=${15:-'None'}
-resume_only_model=${16:-'False'}
+num_train_epochs=${14:-1}
+ds_config=${15:-'None'}
+checkpoint_path=${16:-'None'}
+resume_only_model=${17:-'False'}
 
 if [ "$learning_rate" != "None" ]; then
   learning_rate_arg="--learning_rate $learning_rate"
@@ -83,6 +84,7 @@ swift sft \
     --logging_steps '1' \
     --batch_size $batch_size \
     --eval_batch_size $batch_size \
+    --num_train_epochs $num_train_epochs \
     --add_output_dir_suffix False \
     --ddp_backend nccl \
     --ddp_timeout '1800' \

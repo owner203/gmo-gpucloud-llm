@@ -33,6 +33,7 @@ init_lora_weights='True'
 learning_rate='1e-4'
 gradient_accumulation_steps=16
 batch_size=4
+num_train_epochs=1
 ds_config=$work_dir/LLM-Research/ds_config/zero3_offload.json
 
 #
@@ -44,6 +45,7 @@ ds_config=$work_dir/LLM-Research/ds_config/zero3_offload.json
 # learning_rate='1e-4'
 # gradient_accumulation_steps=16
 # batch_size=1
+# num_train_epochs=1
 # ds_config='None'
 
 #
@@ -53,6 +55,7 @@ ds_config=$work_dir/LLM-Research/ds_config/zero3_offload.json
 # learning_rate='None'
 # gradient_accumulation_steps='None'
 # batch_size=1
+# num_train_epochs=1
 # ds_config='None'
 
 #
@@ -76,6 +79,7 @@ srun scripts/multi_node_sft.sh \
     ${learning_rate:-'None'} \
     ${gradient_accumulation_steps:-'None'} \
     ${batch_size:-1} \
+    ${num_train_epochs:-1} \
     ${ds_config:-'None'} \
     ${checkpoint_path:-'None'} \
     ${resume_only_model:-'False'}
